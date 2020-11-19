@@ -1,70 +1,41 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Button,
-	SafeAreaView,
-	Image,
-	TextInput,
-	Alert,
-} from "react-native"
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ProfileScreen from './components/ProfileScreen'
+import Swiper from './components/Swiper'
+import { Button, View, Text } from 'react-native'
 
-export default function App() {
-	const [count, setCount] = React.useState(0);
-	const [value, onChange] = React.useState(null);
-
-	return (
-		<SafeAreaView style={styles.container}>  
-			<View>    
-				<Text style={styles.baseText}>
-          My Name is           
-					<Text style={styles.innerText}> Kobe ^^ </Text>
-				</Text> 
-				<Image
-					source={require("./public/kobe.jpeg")}
-					style={{ width: 200, height: 200 }}
-				/>  
-				<Button
-					onPress={() => setCount(count + 1)}
-					title={`${count} Likes!`}
-				></Button>
-			</View>
-			<Text style={styles.message}> Message Me! </Text>
-			<TextInput
-				style={{ height: 30, width: 200, borderColor: "grey", borderWidth: 1 }}
-				placeholder="Type here!"
-				onChange={(text) => onChange(text)}
-				defaultValue={value}
-			></TextInput>
-			<Button
-				title="Send Message"
-				onPress={() => Alert.alert("Your message is sent!")}
-			></Button>
-		</SafeAreaView>
-	);
+const HomeScreen = ({navigation}) => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Pet-A-Pet</Text>
+      <Button
+        title="Login"
+        onPress={() =>
+          navigation.navigate('Profile', { name: 'Jane' })
+        }
+      />
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	innerText: {
-		color: "blue",
-		fontWeight: "bold",
-		fontSize: 20,
-	},
-	baseText: {
-		color: "red",
-		fontWeight: "bold",
-		fontSize: 15,
-	},
-	message: {
-		color: "black",
-		fontSize: 15,
-	},
-});
+const Stack = createStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+		<Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Home' }}
+        />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Swiper" component={Swiper} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
