@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {dogs} from '../db'
 import {
 	View,
 	StyleSheet,
@@ -11,22 +11,11 @@ import {
 	PanResponder, //it is for card dragging and rotating
 } from "react-native";
 
+
 //For corss-device compatibility, we are getting the device width and height from an enviornment variable, which is dynamic and corresponds to the device's height and width. Use Dimension and store the values into two constants:
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-//create dummy data
-export const dogs = [
-	{ id: 1, uri: require("../assets/dogs/kobe.jpeg") },
-	{ id: 2, uri: require("../assets/dogs/cody.jpg") },
-	{ id: 3, uri: require("../assets/dogs/daisy.jpg") },
-	{ id: 4, uri: require("../assets/dogs/jack.jpg") },
-	{ id: 5, uri: require("../assets/dogs/kenny.jpg") },
-	{ id: 6, uri: require("../assets/dogs/lucy.jpg") },
-	{ id: 7, uri: require("../assets/dogs/max.jpg") },
-	{ id: 8, uri: require("../assets/dogs/noodle.jpg") },
-	{ id: 9, uri: require("../assets/dogs/nuggets.jpg") },
-];
 
 class Swiper extends React.Component {
 	constructor() {
@@ -54,17 +43,35 @@ class Swiper extends React.Component {
 			},
 			//event handler for the gesture of the release event handler
 			onPanResponderRelease: (evt, gestureState) => {},
-		});
+    });
+    
+    //Animated.Value method for dragging range
+    this.rotate = this.position.x.interpolate({
+      inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2 ],
+      outputRange: ['-10deg', '0deg', '10deg'],
+      extrapolate: 'clamp'
+    })
+
+    this.rotateAndTranslate = {
+      transform: [{
+        rotate: this.rotate
+      },
+    ...this.position.getTranslateTransform()
+  ]
+    }
   }
 
 	render() {
 		return dogs.map((dog, index) => {
+      if (index < this.state.currentIndex){
+        return null;
+      } else if (index === this.state.currentIndex) {
 			return (
 				<Animated.View
         {...this.PanResponder.panHandlers}
 					key={index}
 					style={[
-						{ transform: this.position.getTranslateTransform() },
+						this.rotateAndTranslate,
 						{
 							height: SCREEN_HEIGHT - 120,
 							width: SCREEN_WIDTH,
@@ -84,8 +91,34 @@ class Swiper extends React.Component {
 						source={dog.uri}
 					/>
 				</Animated.View>
-			);
-		});
+      );
+          } else {
+            return (
+              <Animated.View
+                key={index}
+                style={
+                  {
+                    height: SCREEN_HEIGHT - 120,
+                    width: SCREEN_WIDTH,
+                    padding: 10,
+                    position: "absolute",
+                  }
+                }
+              >
+                <Image
+                  style={{
+                    flex: 1,
+                    height: null,
+                    width: null,
+                    resizeMode: "cover",
+                    borderRadius: 20,
+                  }}
+                  source={dog.uri}
+                />
+              </Animated.View>
+            );
+          }
+		}).reverse();
 	}
 }
 
