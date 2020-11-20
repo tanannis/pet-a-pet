@@ -1,21 +1,15 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import {dogs} from '../db'
+import { dogs } from "../db";
 import {
+  StyleSheet,
 	View,
-	StyleSheet,
 	Text,
-	Dimensions,
+  Dimensions,
 	Image,
 	Animated,
 	PanResponder, //it is for card dragging and rotating
 } from "react-native";
-
-
-//For corss-device compatibility, we are getting the device width and height from an enviornment variable, which is dynamic and corresponds to the device's height and width. Use Dimension and store the values into two constants:
-const SCREEN_HEIGHT = Dimensions.get("window").height;
-const SCREEN_WIDTH = Dimensions.get("window").width;
-
 
 class Swiper extends React.Component {
 	constructor() {
@@ -25,6 +19,34 @@ class Swiper extends React.Component {
 		this.state = {
 			currentIndex: 0,
     };
+  
+		//Animated.Value method for dragging range
+		this.rotate = this.position.x.interpolate({
+			inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+			outputRange: ["-10deg", "0deg", "10deg"],
+			extrapolate: "clamp",
+    });
+    //apply the transformations to the current card
+		this.rotateAndTranslate = {
+			transform: [
+				{
+					rotate: this.rotate,
+				},
+				...this.position.getTranslateTransform(),
+			],
+    };
+    
+    //next card opacity effect: fade-in and scale increase
+    this.nextCardOpacity = this.position.x.interpolate({
+      inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+      outputRange: [1, 0, 1],
+      extrapolate: 'clamp'
+    })
+    this.nextCardScale = this.position.x.interpolate({
+      inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+      outputRange: [1, 0.8, 1],
+      extrapolate: 'clamp'
+    })
 	}
 
 	//create a PanResponder obj and assign it to the component & add below methods
@@ -41,85 +63,108 @@ class Swiper extends React.Component {
 					y: gestureState.dy,
 				});
 			},
-			//event handler for the gesture of the release event handler
-			onPanResponderRelease: (evt, gestureState) => {},
-    });
-    
-    //Animated.Value method for dragging range
-    this.rotate = this.position.x.interpolate({
-      inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2 ],
-      outputRange: ['-10deg', '0deg', '10deg'],
-      extrapolate: 'clamp'
-    })
-
-    this.rotateAndTranslate = {
-      transform: [{
-        rotate: this.rotate
+			//event handler for the gesture of releasing a card
+			onPanResponderRelease: (evt, gestureState) => {
+        if (gestureState.dx > 120) {
+          Animated.spring(this.position, {
+            toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy }
+          }).start(() => {
+            this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+              this.position.setValue({ x: 0, y: 0 })
+            })
+          })
+        } else if (gestureState.dx < -120) {
+          Animated.spring(this.position, {
+            toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+          }).start(() => {
+            this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+              this.position.setValue({ x: 0, y: 0 })
+            })
+          })
+        } else{
+          Animated.spring(this.position, {
+            toValue: { x:0, y: 0 },
+            friction: 4
+          }).start()
+        }
       },
-    ...this.position.getTranslateTransform()
-  ]
-    }
-  }
-
-	render() {
-		return dogs.map((dog, index) => {
-      if (index < this.state.currentIndex){
-        return null;
-      } else if (index === this.state.currentIndex) {
-			return (
-				<Animated.View
-        {...this.PanResponder.panHandlers}
-					key={index}
-					style={[
-						this.rotateAndTranslate,
-						{
-							height: SCREEN_HEIGHT - 120,
-							width: SCREEN_WIDTH,
-							padding: 10,
-							position: "absolute",
-						},
-					]}
-				>
-					<Image
-						style={{
-							flex: 1,
-							height: null,
-							width: null,
-							resizeMode: "cover",
-							borderRadius: 20,
-						}}
-						source={dog.uri}
-					/>
-				</Animated.View>
-      );
-          } else {
-            return (
-              <Animated.View
-                key={index}
-                style={
-                  {
-                    height: SCREEN_HEIGHT - 120,
-                    width: SCREEN_WIDTH,
-                    padding: 10,
-                    position: "absolute",
-                  }
-                }
-              >
-                <Image
-                  style={{
-                    flex: 1,
-                    height: null,
-                    width: null,
-                    resizeMode: "cover",
-                    borderRadius: 20,
-                  }}
-                  source={dog.uri}
-                />
-              </Animated.View>
-            );
-          }
-		}).reverse();
+		});
 	}
+
+	renderDogs = () => {
+		return dogs
+			.map((dog, index) => {
+				if (index < this.state.currentIndex) {
+					return null;
+				} else if (index === this.state.currentIndex) {
+					return (
+						<Animated.View
+							{...this.PanResponder.panHandlers}
+							key={index}
+							style={[
+								this.rotateAndTranslate,
+								styles.screen
+							]}
+						>
+							<Image style={styles.image} source={dog.uri} />
+						</Animated.View>
+					);
+				} else {
+					return (
+						<Animated.View
+            style={[
+              {
+                opacity: this.nextCardOpacity,
+                transform: [{ scale: this.nextCardScale }],
+                height: SCREEN_HEIGHT - 120,
+                width: SCREEN_WIDTH,
+                padding: 10,
+                position: "absolute",
+              },
+              ]}
+						>
+							<Image style={styles.image} source={dog.uri} />
+						</Animated.View>
+					);
+				}
+			})
+			.reverse();  //reverse the stack so that the index 0/ the 1st card will be on top
+  }
+  render(){
+    return (
+    <View style={{flex: 1}}>
+      <View style={{height: 60}}>
+
+      </View>
+      <View style={{flex: 1}}>
+        {this.renderDogs()}
+      </View>
+      <View style={{height: 60}}>
+
+      </View>
+    </View>
+    )
+  }
 }
+
+//For corss-device compatibility, we are getting the device width and height from an enviornment variable, which is dynamic and corresponds to the device's height and width. Use Dimension and store the values into two constants:
+const SCREEN_HEIGHT = Dimensions.get("window").height;
+const SCREEN_WIDTH = Dimensions.get("window").width;
+
+const styles = StyleSheet.create({
+	image: {
+		flex: 1,
+		height: null,
+		width: null,
+		resizeMode: "cover",
+		borderRadius: 20,
+	},
+	screen: {
+		height: SCREEN_HEIGHT - 120,
+		width: SCREEN_WIDTH,
+		padding: 10,
+		position: "absolute",
+	},
+});
 
 export default Swiper;
