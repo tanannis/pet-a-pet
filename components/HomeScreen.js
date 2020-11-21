@@ -1,14 +1,15 @@
-import React from 'react'
-import { Button, Text, View } from 'react-native'
-import Swiper from './Swiper'
+import React from "react";
+import { Button, Text, View } from "react-native";
+import { dogs } from "../db";
+import Swiper from "./Swiper";
 
-const HomeScreen = () => {
-    return (
-      <View>
-    <Text></Text>
-    <Swiper />
-    </View>
-    )
-  };
+const HomeScreen = ({ navigation }) => {
 
-  export default HomeScreen
+	return (
+		<View>
+			<Swiper navigation={navigation}/> 
+		</View>
+	);
+};
+
+export default HomeScreen;

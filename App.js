@@ -5,6 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './components/HomeScreen'
 import Swiper from './components/Swiper'
 import { Button, View, Text } from 'react-native'
+import SinglePet from './components/SinglePet';
+import { Provider } from 'react-redux';
+import store from './redux/index'
 
 const Login = ({navigation}) => {
   return (
@@ -24,6 +27,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
+    <Provider store={store}>
     <NavigationContainer>
 		<Stack.Navigator>
         <Stack.Screen
@@ -33,8 +37,10 @@ const App = () => {
         />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Swiper" component={Swiper} />
+        <Stack.Screen name='SinglePet' component={SinglePet} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 };
 
