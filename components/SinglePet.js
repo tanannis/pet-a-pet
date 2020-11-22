@@ -16,27 +16,32 @@ import { dogs } from "../db";
 class SinglePet extends React.Component {
 	constructor() {
 		super();
-		this.state = {
-			selectedDog: {},
-		};
 	}
 
 	render() {
-        console.log('PROP', this.props)
-        console.log('ID', this.props.route.params.dog.id)
-
-			for (let i = 0; i < dogs.length; i++) {
-                const dog = dogs[i]
-                //if dog.id is the selected dog id
-                if (dog.id === this.props.route.params.dog.id)
-					return (
-						<View>
-							<Text>{dog.name}</Text>
-							<Image source={dog.uri} />
-						</View>
-					);
-		};
+		// console.log('PROP', this.props)
+		// console.log('ID', this.props.route.params.dog.id)
+		for (let i = 0; i < dogs.length; i++) {
+			const dog = dogs[i];
+			//if dog.id is the selected dog id
+			if (dog.id === this.props.route.params.dog.id)
+				return (
+					<View style={styles.image}>
+						<Text>{dog.name}</Text>
+						<Image style={styles.image} source={dog.uri} />
+					</View>
+				);
+		}
 	}
 }
+
+const styles = StyleSheet.create({
+	image: {
+        flex: 1,
+        height: null,
+        width: null,
+        resizeMode: 'contain',
+	},
+});
 
 export default SinglePet;
