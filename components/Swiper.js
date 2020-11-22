@@ -12,7 +12,6 @@ import {
 	PanResponder, //it is for card dragging and rotating
 } from "react-native";
 
-
 class Swiper extends React.Component {
 	constructor() {
 		super();
@@ -20,7 +19,6 @@ class Swiper extends React.Component {
 		this.position = new Animated.ValueXY();
 		this.state = {
 			currentIndex: 0,
-			selectedDog: {},
 		};
 
 		//Animated.Value method for dragging range
@@ -50,7 +48,6 @@ class Swiper extends React.Component {
 			outputRange: [1, 0.8, 1],
 			extrapolate: "clamp",
 		});
-		this.pickDog = this.pickDog.bind(this);
 	}
 
 	//create a PanResponder obj and assign it to the component & add below methods
@@ -94,14 +91,9 @@ class Swiper extends React.Component {
 			},
 		});
 	}
-	pickDog(id) {
-		for (let i = 0; i < dogs.length; i++) {
-			const dog = dogs[i];
-			if (id === dog.id) {
-				this.setState({ selectedDog });
-			}
-		}
-		// fetch(`/db/index.js/${id}`)
+	
+	selectDog = (dog) =>{
+		this.props.navigation.navigate('SinglePet', {dog})
 	}
 
 	renderDogs = () => {
@@ -114,14 +106,17 @@ class Swiper extends React.Component {
 						<Animated.View
 							{...this.PanResponder.panHandlers}
 							key={index}
+							name={dog.name}
 							style={[this.rotateAndTranslate, styles.screen]}
 						>
-							<Button
-								title="SinglePet"
-								// onPress={() => this.pickDog(id)}
+							<Text onPress={() => this.selectDog(dog)}>
+								{dog.name}
+							</Text>
+							<Image
+								style={styles.image}
+								source={dog.uri}
 								onPress={() => this.props.navigation.navigate("SinglePet")}
-							></Button>
-							<Image style={styles.image} source={dog.uri} name={dog.name} />
+							/>
 						</Animated.View>
 					);
 				} else {

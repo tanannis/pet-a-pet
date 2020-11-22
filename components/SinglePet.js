@@ -20,30 +20,21 @@ class SinglePet extends React.Component {
 			selectedDog: {},
 		};
 	}
-	componentDidMount() {
-		// this.props.getSinglePet(this.props.match.params.id;
-	}
-
-	pickDog(index) {
-		if (i === index) {
-			this.setState({ selectedDog });
-		}
-    }
 
 	render() {
-		// console.log('PROP', this.props)
+        console.log('PROP', this.props)
+        console.log('ID', this.props.route.params.dog.id)
 
-		// const dog = (dogs, index) => {
 			for (let i = 0; i < dogs.length; i++) {
-                // if (i === index)
                 const dog = dogs[i]
+                //if dog.id is the selected dog id
+                if (dog.id === this.props.route.params.dog.id)
 					return (
 						<View>
 							<Text>{dog.name}</Text>
 							<Image source={dog.uri} />
 						</View>
 					);
-			// }
 		};
 	}
 }
