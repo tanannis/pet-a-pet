@@ -4,8 +4,6 @@ import {
 	Text,
 	View,
 	SafeAreaView,
-	TextInput,
-	Alert,
 	ScrollView,
 	Image,
 } from "react-native";
@@ -40,7 +38,7 @@ class SinglePet extends React.Component {
 						<Icon
 							name="paw"
 							size={40}
-							color="peru"
+							color="chocolate"
 							onPress={this.onPress}
 							style={{ paddingLeft: 15 }}
 						>
@@ -66,7 +64,7 @@ class SinglePet extends React.Component {
 
 const styles = StyleSheet.create({
 	image: {
-		flex: 2,
+		flex: 4,
 		height: null,
 		width: null,
 		resizeMode: "cover",
@@ -91,7 +89,7 @@ const styles = StyleSheet.create({
 	countText: {
 		fontSize: 20,
 		fontWeight: "bold",
-		color: "indianred",
+		color: "chocolate",
 	},
 	text: {
 		fontSize: 25,

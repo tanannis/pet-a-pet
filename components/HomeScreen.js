@@ -11,56 +11,29 @@ const HomeScreen = ({ navigation }) => {
 					name="star"
 					size={40}
 					color="red"
-					style={{ paddingLeft: 20, paddingRight: 20 }}
+					style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10 }}
 				></Icon>
 				<Icon
 					name="comments"
 					size={40}
 					color="grey"
-					style={{ paddingLeft: 50, paddingRight: 20 }}
+					style={{ paddingLeft: 50, paddingRight: 20, paddingTop: 10 }}
 				></Icon>
 				<Icon
 					name="heart"
 					size={40}
 					color="grey"
-					style={{ paddingLeft: 50, paddingRight: 20 }}
+					style={{ paddingLeft: 50, paddingRight: 20, paddingTop: 10 }}
 				></Icon>
 				<Icon
 					name="user"
 					size={40}
 					color="grey"
-					style={{ paddingLeft: 50, paddingRight: 20 }}
+					style={{ paddingLeft: 50, paddingRight: 20, paddingTop: 10 }}
 				></Icon>
 			</View>
 
 			<Swiper navigation={navigation} />
-
-			<View style={{ flex: 1, flexDirection: "row" }}>
-				<Icon
-					name="undo"
-					size={40}
-					color="red"
-					style={{ paddingLeft: 20, paddingRight: 20 }}
-				></Icon>
-				<Icon
-					name="comments"
-					size={40}
-					color="grey"
-					style={{ paddingLeft: 50, paddingRight: 20 }}
-				></Icon>
-				<Icon
-					name="heart"
-					size={40}
-					color="grey"
-					style={{ paddingLeft: 50, paddingRight: 20 }}
-				></Icon>
-				<Icon
-					name="heart"
-					size={40}
-					color="grey"
-					style={{ paddingLeft: 50, paddingRight: 20 }}
-				></Icon>
-			</View>
 		</View>
 	);
 };

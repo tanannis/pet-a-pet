@@ -4,14 +4,21 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./components/HomeScreen";
 import Swiper from "./components/Swiper";
-import { Button, View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import SinglePet from "./components/SinglePet";
 
 const Login = ({ navigation }) => {
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<Text>Pet-A-Pet</Text>
-			<Button title="Login" onPress={() => navigation.navigate("Home")} />
+		<View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: 'moccasin' }}>
+			<Icon
+				name="paw"
+				size={180}
+				color="chocolate"
+				style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10 }}
+			></Icon>
+			<Text style={styles.text}>Pet-A-Pet </Text>
+			<Icon.Button title="Login" color='white' fontWeight='bold' onPress={() => navigation.navigate("Home")} solid> Login </Icon.Button>
 		</View>
 	);
 };
@@ -30,5 +37,13 @@ const App = () => {
 		</NavigationContainer>
 	);
 };
+
+const styles = StyleSheet.create({
+	text: {
+		fontWeight: "bold",
+		color: "black",
+		fontSize: 40,
+	},
+})
 
 export default App;
