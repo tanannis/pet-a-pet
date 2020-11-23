@@ -51,7 +51,7 @@ export const dogs = [
 		id: 9,
 		name: "Nuggets",
 		uri: require("../assets/dogs/nuggets.jpg"),
-		about: "Why is my name Nuggest? Maybe because my mom loves chicken nuggest?"
+		about: "Why is my name Nuggets? Maybe because my mom loves chicken nuggest?"
 	},
 ];
 
