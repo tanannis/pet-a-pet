@@ -1,6 +1,7 @@
 import "react-native-gesture-handler";
 import * as React from "react";
-import { dogs } from "../db";
+import { dogs } from "../data";
+import Icon from 'react-native-vector-icons/Fontisto'
 import {
 	StyleSheet,
 	View,
@@ -91,10 +92,10 @@ class Swiper extends React.Component {
 			},
 		});
 	}
-	
-	selectDog = (dog) =>{
-		this.props.navigation.navigate('SinglePet', {dog})
-	}
+
+	selectDog = (dog) => {
+		this.props.navigation.navigate("SinglePet", { dog });
+	};
 
 	renderDogs = () => {
 		return dogs
@@ -109,7 +110,9 @@ class Swiper extends React.Component {
 							name={dog.name}
 							style={[this.rotateAndTranslate, styles.screen]}
 						>
-							<Text onPress={() => this.selectDog(dog)}>
+							<Icon name="paw" size={30} color='#900'></Icon>
+
+							<Text style={styles.nameText} onPress={() => this.selectDog(dog)}>
 								{dog.name}
 							</Text>
 							<Image
@@ -168,6 +171,11 @@ const styles = StyleSheet.create({
 		width: SCREEN_WIDTH,
 		padding: 10,
 		position: "absolute",
+	},
+	nameText: {
+		fontWeight: "bold",
+		color: "blue",
+		fontSize: 28,
 	},
 });
 
