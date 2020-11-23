@@ -1,17 +1,16 @@
 import "react-native-gesture-handler";
 import * as React from "react";
 import { dogs } from "../data";
-import Icon from 'react-native-vector-icons/Fontisto'
 import {
 	StyleSheet,
 	View,
 	Text,
-	Button,
 	Dimensions,
 	Image,
 	Animated,
 	PanResponder, //it is for card dragging and rotating
 } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 class Swiper extends React.Component {
 	constructor() {
@@ -110,11 +109,13 @@ class Swiper extends React.Component {
 							name={dog.name}
 							style={[this.rotateAndTranslate, styles.screen]}
 						>
-							<Icon name="paw" size={30} color='#900'></Icon>
-
-							<Text style={styles.nameText} onPress={() => this.selectDog(dog)}>
-								{dog.name}
-							</Text>
+							<Animated.View style={styles.nameView}>
+								<Text
+									style={styles.nameText}
+									onPress={() => this.selectDog(dog)}
+								> {dog.name} <Icon name="info-circle" size={30} color="white" />
+								</Text>
+							</Animated.View>
 							<Image
 								style={styles.image}
 								source={dog.uri}
@@ -172,10 +173,16 @@ const styles = StyleSheet.create({
 		padding: 10,
 		position: "absolute",
 	},
+	nameView: {
+		position: "absolute",
+		top: 20,
+		left: 15,
+		zIndex: 1000,
+	},
 	nameText: {
 		fontWeight: "bold",
-		color: "blue",
-		fontSize: 28,
+		color: "white",
+		fontSize: 50,
 	},
 });
 

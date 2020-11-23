@@ -3,16 +3,15 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TouchableHighlight,
 	SafeAreaView,
 	TextInput,
 	Alert,
 	ScrollView,
-	ImageBackground,
+	Image,
 } from "react-native";
 import Constants from "expo-constants";
 import { dogs } from "../data";
-import Icon from "react-native-vector-icons/Fontisto";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 class SinglePet extends React.Component {
 	constructor() {
@@ -37,24 +36,25 @@ class SinglePet extends React.Component {
 			if (dog.id === this.props.route.params.dog.id)
 				return (
 					<View style={{ flex: 1 }}>
-						<ImageBackground style={styles.image} source={dog.uri}>
-							<Text style={styles.nameText}>{dog.name}</Text>
-						</ImageBackground>
-						<Icon name="paw" size={30} color="#900" onPress={this.onPress}>
-							<Text style={[styles.countText]}>
-								PET ME : {this.state.count ? this.state.count : 0} times!{" "}
+						<Image style={styles.image} source={dog.uri} />
+						<Icon
+							name="paw"
+							size={40}
+							color="peru"
+							onPress={this.onPress}
+							style={{ paddingLeft: 15 }}
+						>
+							<Text style={styles.countText}>
+								&nbsp; PET ME : {this.state.count ? this.state.count : 0} times!
 							</Text>
 						</Icon>
-						{/* <TouchableHighlight onPress={this.onPress}>
-							<View style={styles.button}>
-								<Text style={[styles.countText]}>PET ME : {this.state.count ? this.state.count : 0} times! </Text>
-							</View>
-						</TouchableHighlight> */}
+
 						<SafeAreaView style={styles.container}>
 							<ScrollView style={styles.scrollView}>
+								<Text style={styles.nameText}>{dog.name}</Text>
 								<Text style={styles.text}>
-									I'm a good boy, I love mommy and daddy, want to be friends
-									with me? message me below ^^
+									{dog.about} &nbsp;
+									<Icon name="comment" size={40} color="royalblue"></Icon>
 								</Text>
 							</ScrollView>
 						</SafeAreaView>
@@ -90,21 +90,16 @@ const styles = StyleSheet.create({
 	},
 	countText: {
 		fontSize: 20,
-		color: "#FF00FF",
+		fontWeight: "bold",
+		color: "indianred",
 	},
 	text: {
-		fontSize: 30,
+		fontSize: 25,
 	},
 	nameText: {
 		fontWeight: "bold",
-		color: "blue",
-		fontSize: 28,
-	},
-	input: {
-		height: 30,
-		width: null,
-		borderColor: "grey",
-		borderWidth: 1,
+		color: "black",
+		fontSize: 40,
 	},
 });
 
