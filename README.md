@@ -24,9 +24,12 @@ https://expo.io/@tanannis/projects/pet-A-pet
 
 * Filter to select other pets e.g. Cats, Rabbits, etc...
 
-## Technologies:
-- React Native
-- Expo
+## Technologies
+- React Native, Expo
+
+## Screenshots
+![ScreenShots](https://user-images.githubusercontent.com/64669206/100396723-24371180-3014-11eb-934b-0198d41f6e69.png)
+
 
 ## Developed with passion by Annis Tan
 
