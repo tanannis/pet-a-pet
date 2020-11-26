@@ -26,8 +26,6 @@ class SinglePet extends React.Component {
 	};
 
 	render() {
-		// console.log('PROP', this.props)
-		// console.log('ID', this.props.route.params.dog.id)
 		for (let i = 0; i < dogs.length; i++) {
 			const dog = dogs[i];
 			//if dog.id is the selected dog id
@@ -78,7 +76,6 @@ const styles = StyleSheet.create({
 		paddingVertical: 20,
 	},
 	scrollView: {
-		// backgroundColor: 'pink',
 		marginHorizontal: 20,
 	},
 	button: {

@@ -51,7 +51,7 @@ class Swiper extends React.Component {
 	}
 
 	//create a PanResponder obj and assign it to the component & add below methods
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		this.PanResponder = PanResponder.create({
 			//for initializing
 			onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -69,6 +69,7 @@ class Swiper extends React.Component {
 				if (gestureState.dx > 120) {
 					Animated.spring(this.position, {
 						toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
+						useNativeDriver: true,
 					}).start(() => {
 						this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
 							this.position.setValue({ x: 0, y: 0 });
@@ -77,6 +78,7 @@ class Swiper extends React.Component {
 				} else if (gestureState.dx < -120) {
 					Animated.spring(this.position, {
 						toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+						useNativeDriver: true,
 					}).start(() => {
 						this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
 							this.position.setValue({ x: 0, y: 0 });
@@ -86,6 +88,7 @@ class Swiper extends React.Component {
 					Animated.spring(this.position, {
 						toValue: { x: 0, y: 0 },
 						friction: 4,
+						useNativeDriver: true,
 					}).start();
 				}
 			},
@@ -93,7 +96,7 @@ class Swiper extends React.Component {
 	}
 
 	selectDog = (dog) => {
-		this.props.navigation.navigate("SinglePet", { dog });
+		this.props.navigation.navigate('About', { dog });
 	};
 
 	renderDogs = () => {
@@ -113,7 +116,9 @@ class Swiper extends React.Component {
 								<Text
 									style={styles.nameText}
 									onPress={() => this.selectDog(dog)}
-								> {dog.name} <Icon name="info-circle" size={30} color="white" />
+								>
+									{" "}
+									{dog.name} <Icon name="info-circle" size={30} color="white" />
 								</Text>
 							</Animated.View>
 							<Image
@@ -126,6 +131,7 @@ class Swiper extends React.Component {
 				} else {
 					return (
 						<Animated.View
+							key={index}
 							style={[
 								{
 									opacity: this.nextCardOpacity,
@@ -155,7 +161,7 @@ class Swiper extends React.Component {
 	}
 }
 
-//For corss-device compatibility, we are getting the device width and height from an enviornment variable, which is dynamic and corresponds to the device's height and width. Use Dimension and store the values into two constants:
+//For corss-device compatibility, get the device width and height from an enviornment variable, which is dynamic and corresponds to the device's height and width. Use Dimension and store the values into two constants:
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
