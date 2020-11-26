@@ -1,5 +1,28 @@
-## Install and Setup
+## Summary
 
-- npm install
+Pet-A-Pet is a "Tinder clone" social networking app for pet lovers who love to browse pet photos and express their love to the pets.
 
+https://expo.io/@tanannis/projects/pet-a-pet
+
+- Go to above website, use the camera on your phone to scan the QR code, the app will open with Expo (please download the Expo mobile app first)
+
+
+## How to pet a pet with love?
+
+- Press the pet's name / the "i" icon to see the pet's "About" page.
+- Press the "paw" icon to pet the pet. You will see the "0 times" increment by 1 each time you press the "paw" icon.
+
+## Developing in process
+
+* Home: press each icon on the top will navigate to a different screen e.g. your profile/setting page, your chats, a list of your petted pets, your contacts
+
+* About: press the "chat" icon to send a message to the pet owner
+
+* Filter: to select other animals such as Cats, Rabbits, etc...
+
+## Technologies:
+- React Native
+- Expo
+
+## Developed by: Annis Tan
 
