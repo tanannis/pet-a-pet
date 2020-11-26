@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
 				style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 10 }}
 			></Icon>
 			<Text style={styles.text}>Pet-A-Pet </Text>
-			<Icon.Button title="Login" color='white' fontWeight='bold' onPress={() => navigation.navigate("Home")} solid> Login </Icon.Button>
+			<Icon.Button title="Login" color='white' fontWeight='bold' backgroundColor='brown' onPress={() => navigation.navigate("Home")} solid> Login &nbsp; </Icon.Button>
 		</View>
 	);
 };
