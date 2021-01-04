@@ -2,9 +2,7 @@
 
 A 3-day solo project: Pet-A-Pet is a "Tinder clone" social networking app for pet lovers who love to browse pet photos and express their love to the pets.
 
-https://expo.io/@tanannis/projects/pet-A-pet
-
-- Go to above website, use the camera on your phone to scan the QR code, the app will open with Expo (please download the Expo mobile app first)
+https://youtu.be/Kt1nvN2bo0c
 
 
 ## How to pet a pet with love?
