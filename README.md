@@ -1,8 +1,6 @@
 ## Summary
 
-A 3-day solo project: Pet-A-Pet is a "Tinder clone" social networking app for pet lovers who love to browse pet photos and express their love to the pets. See below link for App demo.
-
-https://youtu.be/Kt1nvN2bo0c
+A 3-day solo project: Pet-A-Pet is a "Tinder clone" social networking app for pet lovers who love to browse pet photos and express their love to the pets. App demo: https://youtu.be/Kt1nvN2bo0c
 
 
 ## Screenshots
