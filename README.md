@@ -20,15 +20,6 @@ A 3-day solo project: Pet-A-Pet is a Tinder inspired mini-app for pet lovers who
 - Press the pet's name / the "i" icon to see the pet's "About" page
 - Press the "paw" icon to pet the pet. You will see the "0 times" increment by 1 each time you press the "paw" icon
 
-## Developing in process
-
-* Login and Sign Up functions
-
-* Home: press each icon on the top will navigate to a different screen e.g. your profile/setting page, your chats, a list of your petted pets, your contacts
-
-* About: press the "chat" icon to send a message to the pet owner
-
-* Filter to select other pets e.g. Cats, Rabbits, etc...
 
 ## Technologies
 - JavaScript, React Native, Expo
